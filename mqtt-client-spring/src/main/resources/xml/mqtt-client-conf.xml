@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:int-mqtt="http://www.springframework.org/schema/integration/mqtt"  
+    xsi:schemaLocation="  
+        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.3.xsd  
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd  
+        http://www.springframework.org/schema/integration/mqtt http://www.springframework.org/schema/integration/mqtt/spring-integration-mqtt-4.3.xsd  
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd">  
+  
+    <!-- mqtt客户端 -->  
+    <bean id="clientFactory"  
+        class="org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory">  
+        <property name="userName" value="admin" />  
+        <property name="password" value="public" />  
+    </bean>  
+  
+    <!-- 消息适配器  -->  
+    <int-mqtt:message-driven-channel-adapter  
+        id="mqttInbound" client-id="CID_2016524123456" url="tcp://192.168.206.100:1883"  
+        topics="robot_server"  
+        qos="1"  
+        client-factory="clientFactory"   
+        auto-startup="true"  
+        send-timeout="12"  
+        channel="startCase" />  
+          
+        <int:channel id="startCase" />  
+  
+<!-- 消息处理类 -->  
+<int:service-activator id="startCaseService"  
+    input-channel="startCase" ref="mqttCaseService" method="startCase" />  
+  
+<bean id="mqttCaseService" class="com.example.demo.MqttService" />  
+  
+</beans>  
