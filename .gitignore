@@ -19,5 +19,6 @@ activemq-data
 /.gradle
 build/
 /classes
-
-/mqtt-client-spring/.settings/
+.mvn/
+mvnw.cmd
+mvnw
