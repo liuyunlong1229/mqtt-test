@@ -9,12 +9,13 @@ import java.util.concurrent.ScheduledExecutorService;
  * 订阅消息
  */
 public class Subscriber {
-    private String host = "tcp://192.168.206.100:1883";
+   // private String host = "tcp://192.168.206.100:1883";
+	private String host="tcp://10.122.7.111:1883"; //公司主机地址
     private String userName = "admin";
     private String passWord = "public";
 
     private MqttClient client;
-    private String myTopic = "test/topic";
+    private String myTopic = "$queue/test";
     private MqttConnectOptions options;
     private ScheduledExecutorService scheduler;
 
@@ -44,7 +45,7 @@ public class Subscriber {
                         try{
                             Thread.sleep(1000);
                             client.connect(options);
-                            client.subscribe(myTopic + "/notice/",0);
+                            client.subscribe(myTopic,0);
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -54,23 +55,22 @@ public class Subscriber {
                 
                 public void deliveryComplete(IMqttDeliveryToken token) {
                     //publish后会执行到这里
-                    System.out.println("deliveryComplete---------"
-                            + token.isComplete());
+                   // System.out.println("deliveryComplete---------" + token.isComplete());
                 }
 
                 
                 public void messageArrived(String topicName, MqttMessage message)
                         throws Exception {
                     //subscribe后得到的消息会执行到这里面
-                  
+                	
+                	//Thread.sleep(10*1000);
                     
                     byte[] bytes=message.getPayload();
-                    
-                    System.out.println("messageArrived 11111111111----------" +new String(bytes)) ;
+                    System.out.println("接收到消息>>>>>>>" +new String(bytes)) ;
                 }
             });
             client.connect(options);
-            client.subscribe(myTopic + "/+/",0);
+            client.subscribe(myTopic,0);
             Thread.sleep(1000);
         } catch (Exception e) {
             e.printStackTrace();

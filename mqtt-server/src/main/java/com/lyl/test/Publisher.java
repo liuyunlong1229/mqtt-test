@@ -10,12 +10,15 @@ import java.util.Date;
  */
 public class Publisher {
     private MqttClient client;
-    private String host = "tcp://192.168.206.100:1883";
+    //private String host = "tcp://192.168.206.100:1883";
+    
+    private String host="tcp://10.122.7.111:1883"; //公司主机地址
+    
     private String userName = "admin";
     private String passWord = "public";
     private MqttTopic topic;
     private MqttMessage message;
-    private String myTopic = "test/topic";
+    private String myTopic = "test";
 
     public Publisher(){
         try{
@@ -63,13 +66,13 @@ public class Publisher {
 
                 @Override
                 public void deliveryComplete(IMqttDeliveryToken token) {
-                    System.out.println("deliveryComplete---------"+token.isComplete());
+                    //System.out.println("deliveryComplete---------"+token.isComplete());
                 }
 
                 @Override
                 public void messageArrived(String topic, MqttMessage message)
                         throws Exception {
-                    System.out.println("messageArrived----------"+topic+"-----" + message.getPayload());
+                    //System.out.println("messageArrived----------"+topic+"-----" + message.getPayload());
                 }
             });
 //            topic = client.getTopic(myTopic);
@@ -87,11 +90,13 @@ public class Publisher {
             		Thread.sleep(1000*10);
             	}
                 try{
-                    String content = new Date() + "MQTT Test body" + i;
+                	
+                    String content ="message"+i;
+                	// new Date() + "MQTT Test body" + i;
                     MqttMessage message = new MqttMessage(content.getBytes());
                     message.setQos(0);
-                    System.out.println(i + " pushed at " + new Date() + " " + content);
-                    client.publish(myTopic + "/notice/", message);
+                    System.out.println("发送消息:>>>>" + content);
+                    client.publish(myTopic, message);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
