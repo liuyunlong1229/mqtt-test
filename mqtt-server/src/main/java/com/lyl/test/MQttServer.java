@@ -24,7 +24,7 @@ import org.fusesource.mqtt.client.FutureConnection;
 	    			        new Topic("mqtt/bbb", QoS.AT_LEAST_ONCE),  // 1 至少一次  
 	    			        new Topic("mqtt/ccc", QoS.AT_MOST_ONCE) };  // 0 至多一次  
 	  
-	    public final static long RECONNECTION_ATTEMPT_MAX = 6;  
+	    public final static long RECONNECTION_ATTEMPT_MAX =6;  
 	    public final static long RECONNECTION_DELAY = 2000;  
 	  
 	    public final static int SEND_BUFFER_SIZE = 64;// 发送最大缓冲  

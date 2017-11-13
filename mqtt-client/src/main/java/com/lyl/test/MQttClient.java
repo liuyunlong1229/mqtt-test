@@ -53,7 +53,12 @@ package com.lyl.test;
 	            //mqtt.setPassword("public");
 	    
 	            // 获取mqtt的连接对象BlockingConnection  ,采用Future模式 订阅主题  
-	            final FutureConnection connection = mqtt.futureConnection();    
+	            
+	            
+	            final FutureConnection connection = mqtt.futureConnection();
+	            
+	            connection.isConnected();
+	            
 	            connection.connect();    
 	            connection.subscribe(topics);    
 	            while (true) {    

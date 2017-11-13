@@ -12,5 +12,6 @@
   	<module>mqtt-server-spring</module>
   	<module>mqtt-client-spring</module>
 	<module>test-git</module>
+	<module>mqtt-connector</module>
   </modules>
 </project>

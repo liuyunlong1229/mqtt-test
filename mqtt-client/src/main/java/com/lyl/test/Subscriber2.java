@@ -11,7 +11,7 @@ import java.util.concurrent.ScheduledExecutorService;
 public class Subscriber2 {
    // private String host = "tcp://192.168.206.100:1883";
     
-	  private String host="tcp://10.122.7.111:1883"; //公司主机地址
+	private String host="tcp://10.122.7.111:1883"; //公司主机地址
     private String userName = "admin";
     private String passWord = "public";
 
