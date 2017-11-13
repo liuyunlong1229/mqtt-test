@@ -27,21 +27,25 @@ public class MqttJavaServerApplication {
         				.web(false)
         				.run(args);
         MyGateway gateway = context.getBean(MyGateway.class);
-        
-      /*  int i=1;
-        while(true) {
-        	if(i %10==0) {
-        		try {
-					Thread.sleep(1000*10);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-        	}*/
-        //}
         	
-        	for(int i=1;i<=100;i++) {
-        		gateway.sendToMqtt("开始第【"+i+"】次发送数据"+new SimpleDateFormat("yyyyMMHHmmssSSS").format(new Date()));
+        	int i=1;
+        	
+        	while(true) {
+        		
+        		if (i==1000) break;
+        		
+        		if(i %10==0) {
+        			try {
+						Thread.sleep(10*1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+        		}
+        		String content=new SimpleDateFormat("yyyyMMHHmmssSSS").format(new Date());
+        		gateway.sendToMqtt(content);
+        		System.out.println("第"+i+"次发送消息,内容为>>>>>>>："+content);
+        		
+        		i++;
     		}
         
     }
@@ -50,7 +54,7 @@ public class MqttJavaServerApplication {
     public MqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
         //factory.setServerURIs("tcp://host1:1883", "tcp://host2:1883");
-        factory.setServerURIs("tcp://192.168.206.100:1883");
+        factory.setServerURIs("tcp://10.122.7.111:1883");
         factory.setUserName("adimin");
         factory.setPassword("public");
         return factory;
@@ -62,7 +66,7 @@ public class MqttJavaServerApplication {
         MqttPahoMessageHandler messageHandler =
                        new MqttPahoMessageHandler("testServer", mqttClientFactory());
         messageHandler.setAsync(true);
-        messageHandler.setDefaultTopic("testTopic");
+        messageHandler.setDefaultTopic("topic1");
         return messageHandler;
     }
 
