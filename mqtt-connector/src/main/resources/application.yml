@@ -1,0 +1,8 @@
+mqtt.conf.options: 
+    cleanSession: false
+    connectionTimeout: 10
+    keepAliveInterval: 20
+    userName: admin
+    password: public
+    serverURIs: 
+      - tcp://10.122.7.111:1883
