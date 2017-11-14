@@ -19,14 +19,15 @@ public class MqttPublisher {
 	@Autowired
 	MqttPahoClientFactory mqttPahoClientFactory;
 	
+	
 	public void publish(String clientId,String topic, String content) {
-
-			IMqttClient client;
+		IMqttClient client=null;
 			try {
 				client = mqttPahoClientFactory.getClientInstance(null,clientId);
 				client.connect(mqttPahoClientFactory.getConnectionOptions());
 				MqttMessage mm=new MqttMessage(content.getBytes("utf-8"));
 				client.publish(topic, mm);
+				
 		} catch (MqttException | UnsupportedEncodingException e) {
 			LOGGER.error("发布消息发生异常",e);
 		}

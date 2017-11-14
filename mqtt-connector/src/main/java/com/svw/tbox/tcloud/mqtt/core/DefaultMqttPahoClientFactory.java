@@ -1,8 +1,7 @@
 package com.svw.tbox.tcloud.mqtt.core;
 
-import org.eclipse.paho.client.mqttv3.IMqttAsyncClient;
+
 import org.eclipse.paho.client.mqttv3.IMqttClient;
-import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -21,21 +20,16 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties({MqttConf.class})
-public class DefaultMqttPahoClientFactory implements MqttPahoClientFactory {
-
+public class DefaultMqttPahoClientFactory implements MqttPahoClientFactory{
+	
+	
 	@Autowired
 	private MqttConf mqttConf;
 	
 	@Override
-	public IMqttClient getClientInstance(String uri,String clientId) throws MqttException {
+	public IMqttClient  getClientInstance(String uri,String clientId) throws MqttException {
 		return new MqttClient(uri == null ? mqttConf.getServerURIs()[0] : uri, clientId, new MemoryPersistence());
 	}
-
-	@Override
-	public IMqttAsyncClient getAsyncClientInstance(String uri,String clientId) throws MqttException {
-		return new MqttAsyncClient(uri == null ? mqttConf.getServerURIs()[0] : uri, clientId,new MemoryPersistence());
-	}
-
 
 	@Override
 	public MqttConnectOptions getConnectionOptions() {
@@ -74,5 +68,13 @@ public class DefaultMqttPahoClientFactory implements MqttPahoClientFactory {
 	public void setMqttConf(MqttConf mqttConf) {
 		this.mqttConf = mqttConf;
 	}
+	
+	
+	
+	DefaultMqttPahoClientFactory(){
+		
+	}
+
+	
 	
 }

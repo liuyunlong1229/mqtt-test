@@ -5,4 +5,4 @@ mqtt.conf.options:
     userName: admin
     password: public
     serverURIs: 
-      - tcp://10.122.7.111:1883
+      - tcp://192.168.206.100:1883

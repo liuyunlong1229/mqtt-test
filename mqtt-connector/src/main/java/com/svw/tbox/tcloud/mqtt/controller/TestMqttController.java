@@ -22,7 +22,7 @@ public class TestMqttController {
 	@RequestMapping(value="/sendMessage",method=RequestMethod.POST)
 	@ApiImplicitParam(name="message",value="消息内容",paramType="query",required=true)
 	public void testSend(String message) {
-		mqttPublisher.publish("001","test", message);
+	mqttPublisher.publish("001","test", message);
 		
 	}
 

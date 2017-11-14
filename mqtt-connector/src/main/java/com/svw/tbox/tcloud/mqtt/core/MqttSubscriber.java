@@ -23,13 +23,14 @@ public class MqttSubscriber {
 		try {
 			client = mqttPahoClientFactory.getClientInstance(null,clientId);
 			client.connect(mqttPahoClientFactory.getConnectionOptions());
+			client.subscribe(topic);
 			callBack.setClient(client);
 			callBack.setMqttConnectOptions(mqttPahoClientFactory.getConnectionOptions());
 			callBack.setTopic(topic);
 			client.setCallback(callBack);
 
 		} catch (MqttException e) {
-			LOGGER.error("订阅发生异常",e);
+			LOGGER.error("clientId:{} 订阅 topic:{}发生异常",clientId,topic,e);
 		}
 
 	}

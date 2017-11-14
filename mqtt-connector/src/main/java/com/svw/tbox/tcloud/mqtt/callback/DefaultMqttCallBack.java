@@ -28,7 +28,7 @@ public abstract class DefaultMqttCallBack  implements  MqttCallback{
 				client.subscribe(topic);
 				Thread.sleep(2000);
 			} catch (InterruptedException | MqttException e) {
-				LOGGER.error("重新连接发送异常",e);
+				LOGGER.error("重新连接MQTT SERVER发生异常",e);
 			}
 		}
 	}
